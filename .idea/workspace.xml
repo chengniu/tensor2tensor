@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="118fa719-c28b-408a-b59f-bfe22fd5ef72" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -49,8 +48,8 @@
       <file leaf-file-name="transformer_with_context.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="251" column="82" selection-start-line="251" selection-start-column="82" selection-end-line="251" selection-end-column="82" />
+            <state relative-caret-position="671">
+              <caret line="271" lean-forward="true" selection-start-line="271" selection-end-line="271" />
             </state>
           </provider>
         </entry>
@@ -261,8 +260,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="251" column="82" selection-start-line="251" selection-start-column="82" selection-end-line="251" selection-end-column="82" />
+        <state relative-caret-position="671">
+          <caret line="271" lean-forward="true" selection-start-line="271" selection-end-line="271" />
         </state>
       </provider>
     </entry>

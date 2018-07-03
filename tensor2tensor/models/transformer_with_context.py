@@ -71,16 +71,7 @@ class TransformerWithContext(t2t_model.T2TModel):
           encoder_decoder_attention_bias: Bias and mask weights for
               encoder-decoder attention. [batch_size, input_length]
     """
-    inputs_context = common_layers.flatten4d3d(inputs_context)
-
     inputs = common_layers.flatten4d3d(inputs)
-
-    encoder_input_context, self_attention_bias_context, encoder_decoder_attention_bias_context = (
-        transformer_prepare_encoder(
-            inputs_context, target_space, hparams, features=features))
-
-    encoder_input_context = tf.nn.dropout(encoder_input_context,
-                                  1.0 - hparams.layer_prepostprocess_dropout)
 
     encoder_input, self_attention_bias, encoder_decoder_attention_bias = (
         transformer_prepare_encoder(
@@ -89,18 +80,30 @@ class TransformerWithContext(t2t_model.T2TModel):
     encoder_input = tf.nn.dropout(encoder_input,
                                   1.0 - hparams.layer_prepostprocess_dropout)
 
-    encoder_output_context_0 = transformer_encoder(
-        encoder_input_context,
-        self_attention_bias_context,
-        hparams,
+    encoder_output = transformer_encoder(
+        encoder_input,
+        self_attention_bias,
         hparams,
         nonpadding=features_to_nonpadding(features, "inputs"),
         save_weights_to=self.attention_weights,
         losses=losses)
 
-    encoder_output = transformer_encoder(
-        encoder_input,
-        self_attention_bias,
+    if inputs_context is None:
+        return None, encoder_output, encoder_decoder_attention_bias
+
+    inputs_context = common_layers.flatten4d3d(inputs_context)
+
+    encoder_input_context, self_attention_bias_context, encoder_decoder_attention_bias_context = (
+        transformer_prepare_encoder(
+            inputs_context, target_space, hparams, features=features))
+
+    encoder_input_context = tf.nn.dropout(encoder_input_context,
+                                  1.0 - hparams.layer_prepostprocess_dropout)
+
+    encoder_output_context_0 = transformer_encoder(
+        encoder_input_context,
+        self_attention_bias_context,
+        hparams,
         hparams,
         nonpadding=features_to_nonpadding(features, "inputs"),
         save_weights_to=self.attention_weights,
@@ -216,7 +219,9 @@ class TransformerWithContext(t2t_model.T2TModel):
     losses = []
 
     if self.has_input:
-      inputs_context = features["inputs_context"]
+      inputs_context = None
+      if "inputs_context" in features:
+          inputs_context = features["inputs_context"]
       inputs = features["inputs"]
       target_space = features["target_space_id"]
       encoder_output_context, encoder_output, encoder_decoder_attention_bias = self.encode(
@@ -231,15 +236,6 @@ class TransformerWithContext(t2t_model.T2TModel):
     decoder_input, decoder_self_attention_bias = transformer_prepare_decoder(
         targets, hparams, features=features)
 
-    decoder_output_context = self.decode(
-        decoder_input_context,
-        encoder_output,
-        encoder_decoder_attention_bias,
-        decoder_self_attention_bias,
-        hparams,
-        nonpadding=features_to_nonpadding(features, "targets"),
-        losses=losses)
-
     decoder_output = self.decode(
         decoder_input,
         encoder_output,
@@ -249,7 +245,16 @@ class TransformerWithContext(t2t_model.T2TModel):
         nonpadding=features_to_nonpadding(features, "targets"),
         losses=losses)
 
-    decoder_output = self.cat_and_compress(decoder_output_context, decoder_output)
+    if encoder_output_context is not None:
+        decoder_output_context = self.decode(
+            decoder_input_context,
+            encoder_output_context,
+            encoder_decoder_attention_bias,
+            decoder_self_attention_bias,
+            hparams,
+            nonpadding=features_to_nonpadding(features, "targets"),
+            losses=losses)
+        decoder_output = self.cat_and_compress(decoder_output_context, decoder_output)
 
     expected_attentions = features.get("expected_attentions")
     if expected_attentions is not None:
