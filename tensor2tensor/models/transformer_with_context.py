@@ -219,9 +219,7 @@ class TransformerWithContext(t2t_model.T2TModel):
     losses = []
 
     if self.has_input:
-      inputs_context = None
-      if "inputs_context" in features:
-          inputs_context = features["inputs_context"]
+      inputs_context = features.get("inputs_context")
       inputs = features["inputs"]
       target_space = features["target_space_id"]
       encoder_output_context, encoder_output, encoder_decoder_attention_bias = self.encode(

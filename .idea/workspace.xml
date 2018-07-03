@@ -45,20 +45,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transformer_with_context.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="transformer_with_context.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="671">
-              <caret line="271" lean-forward="true" selection-start-line="271" selection-end-line="271" />
+              <caret line="269" lean-forward="true" selection-start-line="269" selection-end-line="269" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transformer.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="transformer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="2190" />
+            <state relative-caret-position="-3969">
+              <caret line="43" column="13" lean-forward="true" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -251,17 +251,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="2190" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="671">
-          <caret line="271" lean-forward="true" selection-start-line="271" selection-end-line="271" />
+          <caret line="269" lean-forward="true" selection-start-line="269" selection-end-line="269" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3969">
+          <caret line="43" column="13" lean-forward="true" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
         </state>
       </provider>
     </entry>
