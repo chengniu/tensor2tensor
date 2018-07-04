@@ -1473,7 +1473,9 @@ def transformer_base_v1():
   hparams.norm_type = "layer"
   hparams.hidden_size = 512
   hparams.batch_size = 4096
-  hparams.max_length = 256
+  #niucheng
+  #hparams.max_length = 256
+  hparams.max_length = 128
   hparams.clip_grad_norm = 0.  # i.e. no gradient clipping
   hparams.optimizer_adam_epsilon = 1e-9
   hparams.learning_rate_schedule = "legacy"
