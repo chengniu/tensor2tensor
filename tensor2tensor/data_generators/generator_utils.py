@@ -372,6 +372,7 @@ def get_or_generate_vocab(data_dir, tmp_dir, vocab_filename, vocab_size,
             gunzip_file(filepath, new_filepath)
           filepath = new_filepath
 
+        generated_line_num = 0
         with tf.gfile.GFile(filepath, mode="r") as source_file:
           file_byte_budget_ = file_byte_budget
           counter = 0
@@ -385,6 +386,9 @@ def get_or_generate_vocab(data_dir, tmp_dir, vocab_filename, vocab_size,
               line = line.strip()
               file_byte_budget_ -= len(line)
               counter = 0
+              if generated_line_num % 1000 == 0:
+                print("generated line " + str(generated_line_num))
+              generated_line_num += 1
               yield line
 
   return get_or_generate_vocab_inner(data_dir, vocab_filename, vocab_size,

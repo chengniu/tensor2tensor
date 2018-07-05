@@ -799,6 +799,7 @@ class SubwordTextEncoder(TextEncoder):
     if min_count < 1:
       min_count = 1
     for i in range(num_iterations):
+      print("Iteration " + str(i))
       tf.logging.info("Iteration {0}".format(i))
 
       # Collect all substrings of the encoded token that break along current
@@ -853,6 +854,7 @@ class SubwordTextEncoder(TextEncoder):
         new_subtoken_strings = reserved_tokens + new_subtoken_strings
 
       self._init_subtokens_from_list(new_subtoken_strings)
+      print("vocab_size = " + str(self.vocab_size))
       tf.logging.info("vocab_size = %d" % self.vocab_size)
 
   @property

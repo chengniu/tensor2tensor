@@ -145,6 +145,7 @@ def compile_data(tmp_dir, datasets, filename):
             generator_utils.gunzip_file(lang2_filepath, new_filepath)
             lang2_filepath = new_filepath
 
+          line_num = 0
           for example in text_problems.text2text_txt_iterator(
               lang1_filepath, lang2_filepath):
             line1res = _preprocess_sgm(example["inputs"], is_sgm)
@@ -154,6 +155,9 @@ def compile_data(tmp_dir, datasets, filename):
               lang1_resfile.write("\n")
               lang2_resfile.write(line2res)
               lang2_resfile.write("\n")
+              if line_num % 1000 == 0:
+                print("output " + str(line_num))
+              line_num += 1
 
   return filename
 

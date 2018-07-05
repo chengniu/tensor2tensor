@@ -575,6 +575,7 @@ def text2text_generate_encoded(sample_generator,
                                has_inputs=True):
   """Encode Text2Text samples from the generator with the vocab."""
   targets_vocab = targets_vocab or vocab
+
   for sample in sample_generator:
     if has_inputs:
       sample["inputs"] = vocab.encode(sample["inputs"])
