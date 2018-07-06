@@ -799,7 +799,7 @@ class SubwordTextEncoder(TextEncoder):
     if min_count < 1:
       min_count = 1
     for i in range(num_iterations):
-      print("Iteration " + str(i))
+      print("SubwordTextEncoder build voc: Iteration " + str(i))
       tf.logging.info("Iteration {0}".format(i))
 
       # Collect all substrings of the encoded token that break along current

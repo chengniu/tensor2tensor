@@ -156,6 +156,7 @@ def generate_files(generator, output_filenames,
     if case is None:
       continue
     if counter % 100000 == 0:
+      print("generate_files: Generating case " + str(counter))
       tf.logging.info("Generating case %d." % counter)
     counter += 1
     if max_cases and counter > max_cases:
@@ -387,7 +388,7 @@ def get_or_generate_vocab(data_dir, tmp_dir, vocab_filename, vocab_size,
               file_byte_budget_ -= len(line)
               counter = 0
               if generated_line_num % 1000 == 0:
-                print("generated line " + str(generated_line_num))
+                print("get_or_generate_vocab: yield line " + str(generated_line_num))
               generated_line_num += 1
               yield line
 

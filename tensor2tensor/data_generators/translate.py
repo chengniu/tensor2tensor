@@ -156,7 +156,7 @@ def compile_data(tmp_dir, datasets, filename):
               lang2_resfile.write(line2res)
               lang2_resfile.write("\n")
               if line_num % 1000 == 0:
-                print("output " + str(line_num))
+                print("compile_data: output " + str(line_num))
               line_num += 1
 
   return filename
