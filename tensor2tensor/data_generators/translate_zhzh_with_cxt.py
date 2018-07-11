@@ -88,17 +88,22 @@ class ZH_to_ZH_With_Context(translate.TranslateProblem):
     train = dataset_split == problem.DatasetSplit.TRAIN
     datasets = _ZHZH_TRAIN_DATASETS if train else _ZHZH_TEST_DATASETS
     tag = "train" if train else "dev"
+    print("Generating encoded samples for {}".format(tag))
     data_path = translate.compile_data_with_context(tmp_dir, datasets, "mydata_enzh_tok_%s" % tag)
-    return text_problems.text2text_generate_encoded(
+    return text_problems.text2text_generate_encoded_with_cxt(
         text_problems.text2text_cxt_iterator(data_path + ".lang1",
                                              data_path + ".lang2",
                                              data_path + ".cxt"),
         symbolizer_vocab, symbolizer_vocab)
 
+
+  # not quite sure what does this function do
   def feature_encoders(self, data_dir):
     vocab_filename = os.path.join(data_dir, self.source_vocab_name)
+    # here the vocab file is already generated
     encoder = text_encoder.SubwordTextEncoder(vocab_filename)
     return {
         "inputs": encoder,
         "targets": encoder,
+        "contexts": encoder,
     }

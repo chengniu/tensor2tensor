@@ -319,6 +319,7 @@ def get_or_generate_vocab_inner(data_dir, vocab_filename, vocab_size,
   Returns:
     A SubwordTextEncoder vocabulary object.
   """
+  # if no data_dir, no vocab file should be saved
   if data_dir and vocab_filename:
     vocab_filepath = os.path.join(data_dir, vocab_filename)
     if tf.gfile.Exists(vocab_filepath):
@@ -391,6 +392,63 @@ def get_or_generate_vocab(data_dir, tmp_dir, vocab_filename, vocab_size,
               generated_line_num += 1
               yield line
 
+  return get_or_generate_vocab_inner(data_dir, vocab_filename, vocab_size,
+                                     generate())
+
+
+# maybe not necessary...
+def get_or_generate_vocab_with_context(data_dir, tmp_dir, vocab_filename, vocab_size,
+                          sources, file_byte_budget=1e6):
+  """logic behind is the same as 'get_or_generate_vocab', but with different generate() inside"""
+  
+  def generate():
+    """Generate lines for vocabulary generation."""
+    tf.logging.info("Generating vocab from: %s", str(sources))
+    for source in sources:
+      url = source[0]
+      filename = os.path.basename(url)
+      compressed_file = maybe_download(tmp_dir, filename, url)
+      
+      for lang_file in source[1]:
+        tf.logging.info("Reading file: %s" % lang_file)
+        filepath = os.path.join(tmp_dir, lang_file)
+        
+        # Extract from tar if needed.
+        if not tf.gfile.Exists(filepath):
+          read_type = "r:gz" if filename.endswith("tgz") else "r"
+          with tarfile.open(compressed_file, read_type) as corpus_tar:
+            corpus_tar.extractall(tmp_dir)
+        
+        # For some datasets a second extraction is necessary.
+        if lang_file.endswith(".gz"):
+          new_filepath = os.path.join(tmp_dir, lang_file[:-3])
+          if tf.gfile.Exists(new_filepath):
+            tf.logging.info(
+              "Subdirectory %s already exists, skipping unpacking" % filepath)
+          else:
+            tf.logging.info("Unpacking subdirectory %s" % filepath)
+            gunzip_file(filepath, new_filepath)
+          filepath = new_filepath
+        
+        generated_line_num = 0
+        with tf.gfile.GFile(filepath, mode="r") as source_file:
+          file_byte_budget_ = file_byte_budget
+          counter = 0
+          countermax = int(source_file.size() / file_byte_budget_ / 2)
+          for line in source_file:
+            if counter < countermax:
+              counter += 1
+            else:
+              if file_byte_budget_ <= 0:
+                break
+              line = line.strip()
+              file_byte_budget_ -= len(line)
+              counter = 0
+              if generated_line_num % 1000 == 0:
+                print("generated line " + str(generated_line_num))
+              generated_line_num += 1
+              yield line
+  
   return get_or_generate_vocab_inner(data_dir, vocab_filename, vocab_size,
                                      generate())
 

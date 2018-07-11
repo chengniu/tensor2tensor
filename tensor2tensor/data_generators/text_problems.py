@@ -525,7 +525,7 @@ def text2text_cxt_iterator(source_txt_path, target_txt_path, cxt_txt_path):
           txt_line_iterator(source_txt_path),
           txt_line_iterator(target_txt_path),
           txt_line_split_iterator(cxt_txt_path)):
-    yield {"inputs":inputs, "targets":targets, "contexts":contexts}
+    yield {"inputs": inputs, "targets": targets, "contexts": contexts}
 
 def text2text_distill_iterator(source_txt_path, target_txt_path,
                                distill_txt_path):
@@ -614,9 +614,12 @@ def text2text_generate_encoded_with_cxt(sample_generator,
       sample["inputs"] = vocab.encode(sample["inputs"])
       sample["inputs"].append(text_encoder.EOS_ID)
       # here context is still a list of encoded lines
-      sample["context"] = [vocab.encode(item) for item in sample["contexts"]]
-      
-      
+      sample["context"] = [vocab.encode(item).append(text_encoder.EOS_ID)
+                           for item in sample["contexts"]]
+    sample["targets"] = targets_vocab.encode(sample["targets"])
+    sample["targets"].append(text_encoder.EOS_ID)
+    yield sample
+    
 @registry.register_problem
 class Text2textTmpdir(Text2TextProblem):
   """Allows training a Text2TextProblem without defining a subclass.

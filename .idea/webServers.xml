@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="45e48c93-0919-461f-9a3a-9f6c4c00084f" name="10.6.206.57" url="http://10.6.206.57">
+        <fileTransfer host="10.6.206.57" port="36000" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="36000" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
