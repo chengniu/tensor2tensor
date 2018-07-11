@@ -86,6 +86,7 @@ def compile_data(tmp_dir, datasets, filename):
   filename = os.path.join(tmp_dir, filename)
   lang1_fname = filename + ".lang1"
   lang2_fname = filename + ".lang2"
+  # problem is, here it doesn't skip the compile process?
   if tf.gfile.Exists(lang1_fname) and tf.gfile.Exists(lang2_fname):
     tf.logging.info("Skipping compile data, found files:\n%s\n%s", lang1_fname,
                     lang2_fname)
@@ -161,7 +162,105 @@ def compile_data(tmp_dir, datasets, filename):
 
   return filename
 
+# this is why we need to copy several dataset into tmp first...
+def compile_data_with_context(tmp_dir, datasets, filename):
+  """
+    Concatenate all datasets and save to 'filename'
+    Version with context (datasets contains three inputs)
+  """
+  filename = os.path.join(tmp_dir, filename)
+  lang1_fname = filename + ".lang1"
+  lang2_fname = filename + ".lang2"
+  cxt_fname = filename + '.cxt'
 
+  if tf.gfile.Exists(lang1_fname) and tf.gfile.Exists(lang2_fname) and tf.gfile.Exists(cxt_fname):
+    tf.logging.info("Skipping compile data, found files:\n%s\n%s", lang1_fname,
+                    lang2_fname)
+	  
+  with tf.gfile.GFile(lang1_fname, mode='w') as lang1_resfile:
+    with tf.gfile.GFile(lang2_fname, mode='w') as lang2_resfile:
+      with tf.gfile.GFile(cxt_fname, mode='w') as cxt_resfile:
+        for dataset in datasets:
+          url = dataset[0]
+          compressed_filename = os.path.basename(url)
+          compressed_filepath = os.path.join(tmp_dir, compressed_filename)
+          if url.startswith("http"):
+            generator_utils.maybe_download(tmp_dir, compressed_filename, url)
+
+          if dataset[1][0] == "tsv":
+            _, src_column, trg_column, glob_pattern = dataset[1]
+            filenames = tf.gfile.Glob(os.path.join(tmp_dir, glob_pattern))
+            if not filenames:
+              # Capture *.tgz and *.tar.gz too.
+              mode = "r:gz" if compressed_filepath.endswith("gz") else "r"
+              with tarfile.open(compressed_filepath, mode) as corpus_tar:
+                corpus_tar.extractall(tmp_dir)
+              filenames = tf.gfile.Glob(os.path.join(tmp_dir, glob_pattern))
+            for tsv_filename in filenames:
+              if tsv_filename.endswith(".gz"):
+                new_filename = tsv_filename.strip(".gz")
+                generator_utils.gunzip_file(tsv_filename, new_filename)
+                tsv_filename = new_filename
+              with tf.gfile.Open(tsv_filename) as tsv_file:
+                for line in tsv_file:
+                  if line and "\t" in line:
+                    # the context is listed in front of source and target
+                    parts = line.split("\t")
+                    source, target = parts[src_column], parts[trg_column]
+                    source, target = source.strip(), target.strip()
+                    if source and target:
+                      lang1_resfile.write(source)
+                      lang1_resfile.write("\n")
+                      lang2_resfile.write(target)
+                      lang2_resfile.write("\n")
+            else:
+              lang1_filename, lang2_filename, cxt_filename = dataset[1]
+              lang1_filepath = os.path.join(tmp_dir, lang1_filename)
+              lang2_filepath = os.path.join(tmp_dir, lang2_filename)
+              cxt_filepath = os.path.join(tmp_dir, cxt_filename)
+              is_sgm = (
+                      lang1_filename.endswith("sgm") and lang2_filename.endswith("sgm")
+                      and cxt_filename.endswith("sgm"))
+  
+              if not ((tf.gfile.Exists(lang1_filepath) and
+                      tf.gfile.Exists(lang2_filepath)) and
+                      tf.gfile.Exists(cxt_filepath)):
+                # For .tar.gz and .tgz files, we read compressed.
+                mode = "r:gz" if compressed_filepath.endswith("gz") else "r"
+                with tarfile.open(compressed_filepath, mode) as corpus_tar:
+                  corpus_tar.extractall(tmp_dir)
+              if lang1_filepath.endswith(".gz"):
+                new_filepath = lang1_filepath.strip(".gz")
+                generator_utils.gunzip_file(lang1_filepath, new_filepath)
+                lang1_filepath = new_filepath
+              if lang2_filepath.endswith(".gz"):
+                new_filepath = lang2_filepath.strip(".gz")
+                generator_utils.gunzip_file(lang2_filepath, new_filepath)
+                lang2_filepath = new_filepath
+
+              if cxt_filepath.endswith(".gz"):
+                new_filepath = cxt_filepath.strip(".gz")
+                generator_utils.gunzip_file(cxt_filepath, new_filepath)
+                cxt_filepath = new_filepath
+	              
+              line_num = 0
+              for example in text_problems.text2text_cxt_iterator(
+                      lang1_filepath, lang2_filepath, cxt_filepath):
+                line1res = _preprocess_sgm(example["inputs"], is_sgm)
+                line2res = _preprocess_sgm(example["targets"], is_sgm)
+                line3res = _preprocess_sgm(example["contexts"], is_sgm)
+                if line1res and line2res:
+                  lang1_resfile.write(line1res)
+                  lang1_resfile.write("\n")
+                  lang2_resfile.write(line2res)
+                  lang2_resfile.write("\n")
+                  cxt_resfile.write(line3res)
+                  cxt_resfile.write("\n")
+                  if line_num % 1000 == 0:
+                    print("output " + str(line_num))
+                  line_num += 1
+  return filename
+		
 class TranslateDistillProblem(TranslateProblem):
   """Base class for translation problems."""
 

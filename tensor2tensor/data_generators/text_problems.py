@@ -504,7 +504,14 @@ def txt_line_iterator(txt_path):
   with tf.gfile.Open(txt_path) as f:
     for line in f:
       yield line.strip()
-
+      
+def txt_line_split_iterator(txt_path, delimiter='\t'):
+  """Iterate through lines with splits
+     Return a list of txt lines
+  """
+  with tf.gfile.Open(txt_path) as f:
+    for line in f:
+      yield line.strip.split(delimiter)
 
 def text2text_txt_iterator(source_txt_path, target_txt_path):
   """Yield dicts for Text2TextProblem.generate_samples from lines of files."""
@@ -512,6 +519,13 @@ def text2text_txt_iterator(source_txt_path, target_txt_path):
       txt_line_iterator(source_txt_path), txt_line_iterator(target_txt_path)):
     yield {"inputs": inputs, "targets": targets}
 
+def text2text_cxt_iterator(source_txt_path, target_txt_path, cxt_txt_path):
+  """Yield dicts for Text2TextProblem.generate samples with context"""
+  for inputs, targets, contexts in zip(
+          txt_line_iterator(source_txt_path),
+          txt_line_iterator(target_txt_path),
+          txt_line_split_iterator(cxt_txt_path)):
+    yield {"inputs":inputs, "targets":targets, "contexts":contexts}
 
 def text2text_distill_iterator(source_txt_path, target_txt_path,
                                distill_txt_path):
@@ -583,8 +597,26 @@ def text2text_generate_encoded(sample_generator,
     sample["targets"] = targets_vocab.encode(sample["targets"])
     sample["targets"].append(text_encoder.EOS_ID)
     yield sample
-
-
+    
+def text2text_generate_encoded_with_cxt(sample_generator,
+                                        vocab,
+                                        targets_vocab=None,
+                                        has_inputs=True):
+  """
+    Same function as 'text2text_generate_encoded' only with three inputs
+    (input, target, context) :
+  """
+  targets_vocab = targets_vocab or vocab
+  
+  for sample in sample_generator:
+    # input comes with input and context
+    if has_inputs:
+      sample["inputs"] = vocab.encode(sample["inputs"])
+      sample["inputs"].append(text_encoder.EOS_ID)
+      # here context is still a list of encoded lines
+      sample["context"] = [vocab.encode(item) for item in sample["contexts"]]
+      
+      
 @registry.register_problem
 class Text2textTmpdir(Text2TextProblem):
   """Allows training a Text2TextProblem without defining a subclass.

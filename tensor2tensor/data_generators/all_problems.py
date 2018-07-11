@@ -65,6 +65,7 @@ MODULES = [
     "tensor2tensor.data_generators.translate_envi",
     "tensor2tensor.data_generators.translate_enzh",
     "tensor2tensor.data_generators.translate_zhzh",
+    "tensor2tensor.data_generators.translate_zhzh_with_cxt"
     "tensor2tensor.data_generators.twentybn",
     "tensor2tensor.data_generators.video_generated",
     "tensor2tensor.data_generators.wiki",

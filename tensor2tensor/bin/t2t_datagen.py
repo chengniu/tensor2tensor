@@ -129,6 +129,7 @@ def set_random_seed():
 
 
 def main(_):
+  
   usr_dir.import_usr_dir(FLAGS.t2t_usr_dir)
 
   # Calculate the list of problems to generate.
@@ -205,7 +206,7 @@ def generate_data_in_process(arg):
   problem = registry.problem(problem_name)
   problem.generate_data(data_dir, tmp_dir, task_id)
 
-
+# custom problem generation of data
 def generate_data_for_registered_problem(problem_name):
   """Generate data for a registered problem."""
   tf.logging.info("Generating data for %s.", problem_name)
@@ -213,6 +214,7 @@ def generate_data_for_registered_problem(problem_name):
     raise ValueError("--num_shards should not be set for registered Problem.")
   problem = registry.problem(problem_name)
   task_id = None if FLAGS.task_id < 0 else FLAGS.task_id
+  # replace ~ by user dir
   data_dir = os.path.expanduser(FLAGS.data_dir)
   tmp_dir = os.path.expanduser(FLAGS.tmp_dir)
   if task_id is None and problem.multiprocess_generate:
