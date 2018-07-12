@@ -173,6 +173,9 @@ class TransformerWithContext(t2t_model.T2TModel):
     else:
       # Expand since t2t expects 4d tensors.
       return tf.expand_dims(decoder_output, axis=2)
+  
+  def _beam_decode(self, features, decode_length, beam_size, top_beams, alpha):
+    return
 
   def cat_and_compress(self, decoder_output_context, decoder_output, decoder_self_attention_bias, hparams):
       """cantenant decoder_output_context and decoder_output_context at the
@@ -700,3 +703,4 @@ def transformer_ffn_layer(x,
   else:
     assert ffn_layer == "none"
     return x
+

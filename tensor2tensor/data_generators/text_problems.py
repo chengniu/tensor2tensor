@@ -474,6 +474,7 @@ class Text2ClassProblem(Text2TextProblem):
       label = sample["label"]
       yield {"inputs": inputs, "targets": [label]}
 
+  # this function return the
   def feature_encoders(self, data_dir):
     encoder = self.get_or_create_vocab(data_dir, None, force_get=True)
 
@@ -511,7 +512,12 @@ def txt_line_split_iterator(txt_path, delimiter='\t'):
   """
   with tf.gfile.Open(txt_path) as f:
     for line in f:
-      yield line.strip.split(delimiter)
+      # this may yield None objects?
+      ret = line.strip().split(delimiter)
+      if ret is None:
+        import pdb
+        pdb.set_trace()
+      yield ret
 
 def text2text_txt_iterator(source_txt_path, target_txt_path):
   """Yield dicts for Text2TextProblem.generate_samples from lines of files."""
@@ -521,11 +527,14 @@ def text2text_txt_iterator(source_txt_path, target_txt_path):
 
 def text2text_cxt_iterator(source_txt_path, target_txt_path, cxt_txt_path):
   """Yield dicts for Text2TextProblem.generate samples with context"""
-  for inputs, targets, contexts in zip(
+  for inputs, targets, context in zip(
           txt_line_iterator(source_txt_path),
           txt_line_iterator(target_txt_path),
-          txt_line_split_iterator(cxt_txt_path)):
-    yield {"inputs": inputs, "targets": targets, "contexts": contexts}
+          # txt_line_split_iterator(cxt_txt_path)):
+          txt_line_iterator(cxt_txt_path)):
+    # import pdb
+    # pdb.set_trace
+    yield {"inputs": inputs, "targets": targets, "context": context}
 
 def text2text_distill_iterator(source_txt_path, target_txt_path,
                                distill_txt_path):
@@ -615,7 +624,7 @@ def text2text_generate_encoded_with_cxt(sample_generator,
       sample["inputs"].append(text_encoder.EOS_ID)
       # here context is still a list of encoded lines
       sample["context"] = [vocab.encode(item).append(text_encoder.EOS_ID)
-                           for item in sample["contexts"]]
+                           for item in sample["context"]]
     sample["targets"] = targets_vocab.encode(sample["targets"])
     sample["targets"].append(text_encoder.EOS_ID)
     yield sample

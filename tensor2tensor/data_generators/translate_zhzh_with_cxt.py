@@ -56,54 +56,47 @@ _ZHZH_TEST_DATASETS = [
     ],
 ]
 
-
+# In this problem, inputs, targets and
 @registry.register_problem
-class ZH_to_ZH_With_Context(translate.TranslateProblem):
+class MydataZhzhTokensCxt_32k(text_problems.QuestionAndContext2TextProblem):
   """Problem spec for Zh-Zh translation."""
 
+  _URL = ''
+  _DEV_SET = 'data/train'
+  _TRAINING_SET = 'data/dev'
   @property
   def approx_vocab_size(self):
     return 2**15  # 32768
-
-  @property
-  def source_vocab_name(self):
-    return "tokens.vocab.%d" % self.approx_vocab_size
-
-  @property
-  def target_vocab_name(self):
-    return "tokens.vocab.%d" % self.approx_vocab_size
 
   def source_data_files(self, dataset_split):
     train = dataset_split == problem.DatasetSplit.TRAIN
     return _ZHZH_TRAIN_DATASETS if train else _ZHZH_TEST_DATASETS
 
-  def generate_encoded_samples(self, data_dir, tmp_dir, dataset_split):
-    symbolizer_vocab = generator_utils.get_or_generate_vocab(
-        data_dir,
-        tmp_dir,
-        self.source_vocab_name,
-        self.approx_vocab_size,
-        _ZHZH_TRAIN_DATASETS,
-        file_byte_budget=1e8)
-    train = dataset_split == problem.DatasetSplit.TRAIN
-    datasets = _ZHZH_TRAIN_DATASETS if train else _ZHZH_TEST_DATASETS
-    tag = "train" if train else "dev"
-    print("Generating encoded samples for {}".format(tag))
-    data_path = translate.compile_data_with_context(tmp_dir, datasets, "mydata_enzh_tok_%s" % tag)
-    return text_problems.text2text_generate_encoded_with_cxt(
-        text_problems.text2text_cxt_iterator(data_path + ".lang1",
-                                             data_path + ".lang2",
-                                             data_path + ".cxt"),
-        symbolizer_vocab, symbolizer_vocab)
-
-
-  # not quite sure what does this function do
+  # the original target feature encoder of qa problem is not appropriate
   def feature_encoders(self, data_dir):
-    vocab_filename = os.path.join(data_dir, self.source_vocab_name)
-    # here the vocab file is already generated
-    encoder = text_encoder.SubwordTextEncoder(vocab_filename)
-    return {
-        "inputs": encoder,
-        "targets": encoder,
-        "contexts": encoder,
-    }
+    encoders = super(MydataZhzhTokensCxt_32k, self).feature_encoders(data_dir)
+    encoders['targets'] = encoders['inputs']
+    return encoders
+    
+  def is_generate_per_split(self):
+    return True
+
+  def generate_samples(self, data_dir, tmp_dir, dataset_split):
+    url = self._URL
+    filename = (self._TRAINING_SET if dataset_split ==
+                problem.DatasetSplit.TRAIN else self._DEV_SET)
+    ret_dict = self._read_in_files(tmp_dir, filename)
+    # here in samples, the context is also text lines
+    # todo: Now there's no division between multi-turn of conversation
+    return ret_dict
+    
+  def _read_in_files(self, tmp_dir, filename):
+
+    q_file = os.path.join(tmp_dir, filename + '.en')
+    a_file = os.path.join(tmp_dir, filename + '.zh')
+    cxt_file = os.path.join(tmp_dir, filename + '.cxt')
+    # import pdb
+    # pdb.set_trace()
+    return text_problems.text2text_cxt_iterator(q_file, a_file, cxt_file)
+    
+    

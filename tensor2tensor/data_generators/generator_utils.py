@@ -54,7 +54,11 @@ def to_example(dictionary):
       features[k] = tf.train.Feature(bytes_list=tf.train.BytesList(value=v))
     elif isinstance(v[0], bytes):
       features[k] = tf.train.Feature(bytes_list=tf.train.BytesList(value=v))
+    # elif v[0] is None:
+    #   features[k] = tf.train.Feature()
     else:
+      # import pdb
+      # pdb.set_trace()
       raise ValueError("Value for %s is not a recognized type; v: %s type: %s" %
                        (k, str(v[0]), str(type(v[0]))))
   return tf.train.Example(features=tf.train.Features(feature=features))
