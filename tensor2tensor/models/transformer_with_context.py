@@ -271,8 +271,10 @@ class TransformerWithContext(t2t_model.T2TModel):
     else:
       return ret
 
-
+# indicates that the inputs are strictly smaller than 1.0 ?
+# or because of normalization ?
 def features_to_nonpadding(features, inputs_or_targets="inputs"):
+  # This key should be important to understand this function
   key = inputs_or_targets + "_segmentation"
   if features and key in features:
     return tf.minimum(tf.to_float(features[key]), 1.0)
