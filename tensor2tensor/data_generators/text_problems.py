@@ -530,10 +530,10 @@ def text2text_cxt_iterator(source_txt_path, target_txt_path, cxt_txt_path):
   for inputs, targets, context in zip(
           txt_line_iterator(source_txt_path),
           txt_line_iterator(target_txt_path),
-          # txt_line_split_iterator(cxt_txt_path)):
-          txt_line_iterator(cxt_txt_path)):
+          txt_line_split_iterator(cxt_txt_path)):
+          # txt_line_iterator(cxt_txt_path)):
     # import pdb
-    # pdb.set_trace
+    # pdb.set_trace()
     yield {"inputs": inputs, "targets": targets, "context": context}
 
 def text2text_distill_iterator(source_txt_path, target_txt_path,

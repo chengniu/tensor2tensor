@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="118fa719-c28b-408a-b59f-bfe22fd5ef72" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tensor2tensor/models/transformer_multi_context.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensor2tensor/models/transformer_multi_context.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensor2tensor/data_generators/text_problems.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensor2tensor/data_generators/text_problems.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensor2tensor/data_generators/translate_zhzh_with_cxt.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensor2tensor/data_generators/translate_zhzh_with_cxt.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,6 +14,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="tensor2tensor" />
+  </component>
   <component name="FileEditorManager">
     <splitter split-orientation="horizontal" split-proportion="0.490625">
       <split-first>
@@ -21,29 +24,29 @@
           <file leaf-file-name="generator_utils.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/generator_utils.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-9">
-                  <caret line="177" column="51" selection-start-line="177" selection-start-column="51" selection-end-line="177" selection-end-column="51" />
+                <state relative-caret-position="322">
+                  <caret line="187" column="4" selection-start-line="187" selection-start-column="4" selection-end-line="187" selection-end-column="4" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="t2t_datagen.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tensor2tensor/bin/t2t_datagen.py">
+          <file leaf-file-name="transformer_with_context.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret line="188" selection-start-line="188" selection-end-line="188" />
+                <state relative-caret-position="276">
+                  <caret line="221" selection-start-line="221" selection-end-line="221" />
                   <folding>
-                    <element signature="e#1245#1283#0" expanded="true" />
+                    <element signature="e#1054#1092#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="translate_zhzh.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/translate_zhzh.py">
+          <file leaf-file-name="modality.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/tensor2tensor/utils/modality.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret line="20" selection-start-line="20" selection-end-line="20" />
+                <state relative-caret-position="391">
+                  <caret line="133" column="36" selection-start-line="133" selection-start-column="36" selection-end-line="133" selection-end-column="36" />
                 </state>
               </provider>
             </entry>
@@ -51,8 +54,8 @@
           <file leaf-file-name="translate_zhzh_with_cxt.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/translate_zhzh_with_cxt.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-9">
-                  <caret line="76" column="18" selection-start-line="76" selection-start-column="18" selection-end-line="76" selection-end-column="18" />
+                <state relative-caret-position="235">
+                  <caret line="114" column="25" selection-start-line="114" selection-start-column="25" selection-end-line="114" selection-end-column="25" />
                   <folding>
                     <element signature="e#656#694#0" expanded="true" />
                   </folding>
@@ -63,29 +66,22 @@
           <file leaf-file-name="t2t_trainer.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tensor2tensor/bin/t2t_trainer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-9">
-                  <caret line="198" column="28" selection-start-line="198" selection-start-column="28" selection-end-line="198" selection-end-column="28" />
+                <state relative-caret-position="475">
+                  <caret line="175" column="25" selection-start-line="175" selection-start-column="25" selection-end-line="175" selection-end-column="25" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="transformer_multi_context.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer_multi_context.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="598">
-                  <caret line="77" column="27" selection-start-line="77" selection-start-column="27" selection-end-line="77" selection-end-column="27" />
-                  <folding>
-                    <element signature="e#1054#1092#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
+          <file leaf-file-name="t2t_trainer_test.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/tensor2tensor/bin/t2t_trainer_test.py">
+              <provider selected="true" editor-type-id="text-editor" />
             </entry>
           </file>
           <file leaf-file-name="trainer_lib.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tensor2tensor/utils/trainer_lib.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-9">
-                  <caret line="226" column="26" selection-start-line="226" selection-start-column="26" selection-end-line="226" selection-end-column="26" />
+                <state relative-caret-position="263">
+                  <caret line="500" selection-start-line="500" selection-end-line="500" />
                 </state>
               </provider>
             </entry>
@@ -93,20 +89,8 @@
           <file leaf-file-name="problem.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/problem.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret line="785" column="1" selection-start-line="785" selection-start-column="1" selection-end-line="785" selection-end-column="1" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="t2t-trainer" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tensor2tensor/bin/t2t-trainer">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-9">
-                  <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
-                  <folding>
-                    <element signature="e#430#468#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="424">
+                  <caret line="565" column="44" selection-start-line="565" selection-start-column="44" selection-end-line="565" selection-end-column="44" />
                 </state>
               </provider>
             </entry>
@@ -114,8 +98,11 @@
           <file leaf-file-name="modalities.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tensor2tensor/layers/modalities.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-9">
-                  <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+                <state relative-caret-position="421">
+                  <caret line="102" column="37" selection-start-line="102" selection-start-column="37" selection-end-line="102" selection-end-column="37" />
+                  <folding>
+                    <element signature="e#677#715#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -124,23 +111,23 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-          <file leaf-file-name="transformer_with_context.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py">
+          <file leaf-file-name="common_layers.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/tensor2tensor/layers/common_layers.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1224">
-                  <caret line="647" column="26" selection-start-line="647" selection-start-column="26" selection-end-line="647" selection-end-column="26" />
-                  <folding>
-                    <element signature="e#1054#1092#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="145">
+                  <caret line="1462" column="27" selection-start-line="1462" selection-start-column="27" selection-end-line="1462" selection-end-column="27" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="common_layers.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tensor2tensor/layers/common_layers.py">
+          <file leaf-file-name="translate_zhzh.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/translate_zhzh.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="536">
-                  <caret line="1479" column="16" selection-start-line="1479" selection-start-column="16" selection-end-line="1479" selection-end-column="16" />
+                <state relative-caret-position="575">
+                  <caret line="93" column="32" selection-start-line="93" selection-start-column="32" selection-end-line="93" selection-end-column="32" />
+                  <folding>
+                    <element signature="e#656#694#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -154,22 +141,13 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="common_attention.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tensor2tensor/layers/common_attention.py">
+          <file leaf-file-name="t2t_model.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/tensor2tensor/utils/t2t_model.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="99">
-                  <caret line="3031" column="35" selection-start-line="3031" selection-start-column="35" selection-end-line="3031" selection-end-column="35" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="translate_zhzh_with_cxt.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/translate_zhzh_with_cxt.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret line="56" selection-start-line="56" selection-end-line="56" />
+                <state relative-caret-position="-276">
+                  <caret line="277" column="57" selection-start-line="277" selection-start-column="57" selection-end-line="277" selection-end-column="57" />
                   <folding>
-                    <element signature="e#656#694#0" expanded="true" />
+                    <element signature="e#632#670#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -178,17 +156,22 @@
           <file leaf-file-name="text_encoder.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/text_encoder.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret line="160" column="14" selection-start-line="160" selection-start-column="10" selection-end-line="160" selection-end-column="14" />
+                <state relative-caret-position="368">
+                  <caret line="171" selection-start-line="171" selection-end-line="171" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="text_problems.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="text_encoder_test.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/text_encoder_test.py">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
+          <file leaf-file-name="text_problems.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/text_problems.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret line="370" column="54" selection-start-line="370" selection-start-column="54" selection-end-line="370" selection-end-column="54" />
+                <state relative-caret-position="69">
+                  <caret line="377" column="46" lean-forward="true" selection-start-line="377" selection-start-column="46" selection-end-line="377" selection-end-column="46" />
                   <folding>
                     <element signature="e#1046#1084#0" expanded="true" />
                   </folding>
@@ -214,15 +197,6 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="squad.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/squad.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret line="106" column="11" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="11" />
-                </state>
-              </provider>
-            </entry>
-          </file>
         </leaf>
       </split-second>
     </splitter>
@@ -236,36 +210,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>text2textProblem</find>
-      <find>self.dataset_splits</find>
-      <find>def dataset_splits</find>
-      <find>text2text_cxt_</find>
-      <find>exa</find>
-      <find>pdb</find>
-      <find>generate_files</find>
-      <find>def generate_encoded</find>
-      <find>generate_samples</find>
-      <find>yield sample</find>
-      <find>c</find>
-      <find>contexts</find>
-      <find>def vocab</find>
-      <find>source_vocab</find>
-      <find>vocab</find>
-      <find>def get_or_crea</find>
-      <find>force_get</find>
-      <find>feature_encoders</find>
-      <find>text</find>
-      <find>feature_encoder</find>
-      <find>gpu</find>
-      <find>worker_gpu_memory</find>
-      <find>autotune_parallel_trials</find>
-      <find>memory</find>
       <find>use_tpu</find>
       <find>\t</find>
       <find>features_to_nonpadding</find>
       <find>ffn_layer</find>
       <find>dense_relu_</find>
       <find>shape</find>
+      <find>eval_steps</find>
+      <find>local_eval_freq</find>
+      <find>min_</find>
+      <find>min_eval_frequency</find>
+      <find>model_fn</find>
+      <find>def model_fn</find>
+      <find>_problem_hparams</find>
+      <find>self._problem_hparams</find>
+      <find>self._problem_hparams =</find>
+      <find>HParams</find>
+      <find>`</find>
+      <find>hparams</find>
+      <find>problem_hparams</find>
+      <find>modality</find>
+      <find>get_hparams</find>
+      <find>log_info</find>
+      <find>bottomf</find>
+      <find>_default_hparams</find>
+      <find>generate_dataset</find>
+      <find>def dataset</find>
+      <find>def bottom</find>
+      <find>bottom</find>
+      <find>pdb.set</find>
+      <find>input_modality</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -282,11 +256,12 @@
         <option value="$PROJECT_DIR$/tensor2tensor/data_generators/all_problems.py" />
         <option value="$PROJECT_DIR$/tensor2tensor/models/__init__.py" />
         <option value="$PROJECT_DIR$/tensor2tensor/data_generators/translate.py" />
-        <option value="$PROJECT_DIR$/tensor2tensor/data_generators/generator_utils.py" />
+        <option value="$PROJECT_DIR$/tensor2tensor/models/transformer_multi_context.py" />
+        <option value="$PROJECT_DIR$/tensor2tensor/utils/t2t_model.py" />
         <option value="$PROJECT_DIR$/tensor2tensor/data_generators/text_problems.py" />
         <option value="$PROJECT_DIR$/tensor2tensor/data_generators/translate_zhzh_with_cxt.py" />
+        <option value="$PROJECT_DIR$/tensor2tensor/data_generators/generator_utils.py" />
         <option value="$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py" />
-        <option value="$PROJECT_DIR$/tensor2tensor/models/transformer_multi_context.py" />
       </list>
     </option>
   </component>
@@ -328,7 +303,31 @@
               <item name="tensor2tensor" type="b2602c69:ProjectViewProjectNode" />
               <item name="tensor2tensor" type="462c0819:PsiDirectoryNode" />
               <item name="tensor2tensor" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tensor2tensor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tensor2tensor" type="462c0819:PsiDirectoryNode" />
+              <item name="tensor2tensor" type="462c0819:PsiDirectoryNode" />
+              <item name="data_generators" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tensor2tensor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tensor2tensor" type="462c0819:PsiDirectoryNode" />
+              <item name="tensor2tensor" type="462c0819:PsiDirectoryNode" />
+              <item name="layers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tensor2tensor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tensor2tensor" type="462c0819:PsiDirectoryNode" />
+              <item name="tensor2tensor" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tensor2tensor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tensor2tensor" type="462c0819:PsiDirectoryNode" />
+              <item name="tensor2tensor" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -394,28 +393,44 @@
       <option name="project" value="LOCAL" />
       <updated>1531400304725</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Finish cxt_guided_encoder of transformer_multi_context.py. Still got some problems need to be solved.">
+      <created>1531734445214</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1531734445214</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
+  </component>
+  <component name="TodoView" selected-index="4">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3296582" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.3296582" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="File Transfer" order="12" weight="0.3296582" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="8" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.18020834" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49944875" visible="true" weight="0.18020834" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.15531915" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Favorites" order="2" sideWeight="0.5005513" side_tool="true" weight="0.18020834" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -460,35 +475,15 @@
     <MESSAGE value="Finish version 0.1 of translate_zhzh_with_cxt. And bunch of other &#10;related supporting functions." />
     <MESSAGE value="Finish version 0.2 of translate_zhzh_with_cxt. The base model of &#10;QuestionAndContext saves the world." />
     <MESSAGE value="Finish version 0.2.1 of translate_zhzh_with_cxt. Now the model can &#10;run normally." />
-    <option name="LAST_COMMIT_MESSAGE" value="Finish version 0.2.1 of translate_zhzh_with_cxt. Now the model can &#10;run normally." />
+    <MESSAGE value="Finish cxt_guided_encoder of transformer_multi_context.py. Still got some problems need to be solved." />
+    <option name="LAST_COMMIT_MESSAGE" value="Finish cxt_guided_encoder of transformer_multi_context.py. Still got some problems need to be solved." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/bin/t2t-datagen">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/bin/t2t_datagen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2970">
-          <caret line="130" column="4" selection-start-line="130" selection-start-column="4" selection-end-line="130" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/all_problems.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1647">
-          <caret line="66" column="51" lean-forward="true" selection-start-line="66" selection-start-column="51" selection-end-line="66" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/translate_zhzh.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2025">
@@ -529,13 +524,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2018.1/system/python_stubs/-1497046171/builtins.py" />
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/utils/t2t_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16239">
-          <caret line="706" column="6" selection-start-line="706" selection-start-column="6" selection-end-line="706" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/site-packages/tensorflow/python/ops/array_ops.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/site-packages/tensorflow/python/ops/gen_array_ops.py" />
     <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/translate_ende.py">
@@ -577,6 +565,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
           <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
+          <folding>
+            <element signature="e#1703#1741#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -630,20 +621,10 @@
         <state relative-caret-position="-8418" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/bin/t2t_trainer_test.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2277">
           <caret line="115" column="59" lean-forward="true" selection-start-line="115" selection-start-column="59" selection-end-line="115" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/problem.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="785" column="1" selection-start-line="785" selection-start-column="1" selection-end-line="785" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -670,82 +651,10 @@
     <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/text_problems_test.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/translate_zhzh.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/generator_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="177" column="51" selection-start-line="177" selection-start-column="51" selection-end-line="177" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/squad.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret line="106" column="11" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/text_encoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="160" column="14" selection-start-line="160" selection-start-column="10" selection-end-line="160" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/text_problems.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="370" column="54" selection-start-line="370" selection-start-column="54" selection-end-line="370" selection-end-column="54" />
-          <folding>
-            <element signature="e#1046#1084#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/layers/modalities.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/bin/t2t-trainer">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
-          <folding>
-            <element signature="e#430#468#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/bin/t2t_trainer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="198" column="28" selection-start-line="198" selection-start-column="28" selection-end-line="198" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/utils/trainer_lib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="226" column="26" selection-start-line="226" selection-start-column="26" selection-end-line="226" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/translate_zhzh_with_cxt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="76" column="18" selection-start-line="76" selection-start-column="18" selection-end-line="76" selection-end-column="18" />
-          <folding>
-            <element signature="e#656#694#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -763,10 +672,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/utils/expert_utils.py">
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/bin/t2t-trainer">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="537" column="29" selection-start-line="537" selection-start-column="29" selection-end-line="537" selection-end-column="29" />
+        <state relative-caret-position="598">
+          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+          <folding>
+            <element signature="e#430#468#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer_multi_context.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="74" column="4" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
+          <folding>
+            <element signature="e#1054#1092#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/bin/t2t_trainer_test.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/bin/t2t_trainer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="175" column="25" selection-start-line="175" selection-start-column="25" selection-end-line="175" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/utils/trainer_lib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="500" selection-start-line="500" selection-end-line="500" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/layers/modalities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="102" column="37" selection-start-line="102" selection-start-column="37" selection-end-line="102" selection-end-column="37" />
+          <folding>
+            <element signature="e#677#715#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -779,25 +728,100 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tensor2tensor/layers/common_layers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="1479" column="16" selection-start-line="1479" selection-start-column="16" selection-end-line="1479" selection-end-column="16" />
+        <state relative-caret-position="145">
+          <caret line="1462" column="27" selection-start-line="1462" selection-start-column="27" selection-end-line="1462" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/translate_zhzh.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="93" column="32" selection-start-line="93" selection-start-column="32" selection-end-line="93" selection-end-column="32" />
+          <folding>
+            <element signature="e#656#694#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/1441350350/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1948">
+          <caret line="5246" column="8" selection-start-line="5246" selection-start-column="8" selection-end-line="5246" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/problem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="565" column="44" selection-start-line="565" selection-start-column="44" selection-end-line="565" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/utils/modality.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="133" column="36" selection-start-line="133" selection-start-column="36" selection-end-line="133" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/utils/expert_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="537" column="29" selection-start-line="537" selection-start-column="29" selection-end-line="537" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/translate_zhzh_with_cxt.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="114" column="25" selection-start-line="114" selection-start-column="25" selection-end-line="114" selection-end-column="25" />
+          <folding>
+            <element signature="e#656#694#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/text_encoder_test.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/text_encoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="171" selection-start-line="171" selection-end-line="171" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/utils/t2t_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-276">
+          <caret line="277" column="57" selection-start-line="277" selection-start-column="57" selection-end-line="277" selection-end-column="57" />
+          <folding>
+            <element signature="e#632#670#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/generator_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="187" column="4" selection-start-line="187" selection-start-column="4" selection-end-line="187" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor2tensor/data_generators/text_problems.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="377" column="46" lean-forward="true" selection-start-line="377" selection-start-column="46" selection-end-line="377" selection-end-column="46" />
+          <folding>
+            <element signature="e#1046#1084#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="647" column="26" selection-start-line="647" selection-start-column="26" selection-end-line="647" selection-end-column="26" />
-          <folding>
-            <element signature="e#1054#1092#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer_multi_context.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="77" column="27" selection-start-line="77" selection-start-column="27" selection-end-line="77" selection-end-column="27" />
+        <state relative-caret-position="276">
+          <caret line="221" selection-start-line="221" selection-end-line="221" />
           <folding>
             <element signature="e#1054#1092#0" expanded="true" />
           </folding>
