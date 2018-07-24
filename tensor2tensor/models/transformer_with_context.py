@@ -48,6 +48,7 @@ class TransformerWithContext(t2t_model.T2TModel):
   def __init__(self, *args, **kwargs):
     super(TransformerWithContext, self).__init__(*args, **kwargs)
     self.attention_weights = dict()  # For visualizing attention heads.
+    self._hparams.use_target_space_embedding = False # turn of target language embedding
 
   def encode(self, inputs_context, inputs, target_space, hparams, features=None, losses=None):
     """Encode transformer inputs.
