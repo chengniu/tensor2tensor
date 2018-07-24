@@ -101,3 +101,11 @@ class MydataEnzhTokens_32k(translate.TranslateProblem):
         "inputs": encoder,
         "targets": encoder,
     }
+
+  @property
+  def input_space_id(self):
+      return problem.SpaceID.ZH_TOK
+
+  @property
+  def target_space_id(self):
+      return problem.SpaceID.ZH_TOK

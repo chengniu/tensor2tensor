@@ -421,9 +421,12 @@ def get_timing_signal_1d(length,
   """
   position = tf.to_float(tf.range(length) + start_index)
   num_timescales = channels // 2
+  num_timescales_tmp = num_timescales
+  if num_timescales_tmp == 1:
+      num_timescales_tmp += 1 #to avoid overflow
   log_timescale_increment = (
       math.log(float(max_timescale) / float(min_timescale)) /
-      (tf.to_float(num_timescales) - 1))
+      (tf.to_float(num_timescales_tmp) - 1))
   inv_timescales = min_timescale * tf.exp(
       tf.to_float(tf.range(num_timescales)) * -log_timescale_increment)
   scaled_time = tf.expand_dims(position, 1) * tf.expand_dims(inv_timescales, 0)

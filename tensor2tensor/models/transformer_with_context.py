@@ -104,17 +104,18 @@ class TransformerWithContext(t2t_model.T2TModel):
         encoder_input_context,
         self_attention_bias_context,
         hparams,
-        hparams,
+        name="encoder_context",
         nonpadding=features_to_nonpadding(features, "inputs"),
         save_weights_to=self.attention_weights,
         losses=losses)
 
     encoder_output_context = transformer_decoder(
-        encoder_output,
+        encoder_input,
         encoder_output_context_0,
         encoder_decoder_attention_bias,
         encoder_decoder_attention_bias_context,
-        hparams)
+        hparams,
+        name="decoder_input_context")
 
     return encoder_output_context, encoder_output, encoder_decoder_attention_bias
 
@@ -124,6 +125,7 @@ class TransformerWithContext(t2t_model.T2TModel):
              encoder_decoder_attention_bias,
              decoder_self_attention_bias,
              hparams,
+             name,
              cache=None,
              decode_loop_step=None,
              nonpadding=None,
@@ -159,6 +161,7 @@ class TransformerWithContext(t2t_model.T2TModel):
         decoder_self_attention_bias,
         encoder_decoder_attention_bias,
         hparams,
+        name=name,
         cache=cache,
         decode_loop_step=decode_loop_step,
         nonpadding=nonpadding,
@@ -174,7 +177,7 @@ class TransformerWithContext(t2t_model.T2TModel):
       # Expand since t2t expects 4d tensors.
       return tf.expand_dims(decoder_output, axis=2)
 
-  def cat_and_compress(self, decoder_output_context, decoder_output, decoder_self_attention_bias, hparams):
+  def cat_and_compress(self, decoder_output_context, decoder_output, hparams):
       """cantenant decoder_output_context and decoder_output_context at the
          last dimenstion, and then compress.
 
@@ -182,24 +185,18 @@ class TransformerWithContext(t2t_model.T2TModel):
             decoder_output_context:  [batch_size, decoder_length, hidden_dim]
             decoder_output:  [batch_size, input_length, hidden_dim]
             decoder_self_attention_bias: Bias and mask weights for decoder
-                self-attention. [batch_size, decoder_length]\
+                self-attention. [batch_size, decoder_length]
 
           Returns:
             Final decoder representaiton. [batch_size, decoder_length, hidden_dim]
           """
       with tf.variable_scope("cat_and_compress"):
+        decoder_output_context = common_layers.flatten4d3d(decoder_output_context)
+        decoder_output = common_layers.flatten4d3d(decoder_output)
         x = tf.concat([decoder_output_context, decoder_output], 2)
-        original_shape = tf.shape(x)
-        hidden_dim = original_shape[2] / 2
-        pad_remover = None
-        if hparams.use_pad_remover:
-          pad_remover = expert_utils.PadRemover(common_attention.attention_bias_to_padding(decoder_self_attention_bias))
-          x = tf.reshape(x, tf.concat([[-1], tf.shape(x)[2:]], axis=0))
-          x = tf.expand_dims(pad_remover.remove(x), axis=0)
-        conv_output = common_layers.conv_hidden_relu(x, 1, hidden_dim)
-        if pad_remover:
-          conv_output = tf.reshape(pad_remover.restore(tf.squeeze(conv_output, axis=0)), original_shape)
-          return conv_output
+        conv_output = common_layers.conv_hidden_relu(x, 1, hparams.hidden_size)
+        conv_output = tf.expand_dims(conv_output, axis=2)
+        return conv_output
 
   def body(self, features):
     """Transformer main model_fn.
@@ -240,6 +237,7 @@ class TransformerWithContext(t2t_model.T2TModel):
         encoder_decoder_attention_bias,
         decoder_self_attention_bias,
         hparams,
+        name="decoder_output_input",
         nonpadding=features_to_nonpadding(features, "targets"),
         losses=losses)
 
@@ -250,9 +248,10 @@ class TransformerWithContext(t2t_model.T2TModel):
             encoder_decoder_attention_bias,
             decoder_self_attention_bias,
             hparams,
+            name="decoder_output_input_context",
             nonpadding=features_to_nonpadding(features, "targets"),
             losses=losses)
-        decoder_output = self.cat_and_compress(decoder_output_context, decoder_output)
+        decoder_output = self.cat_and_compress(decoder_output_context, decoder_output, hparams)
 
     expected_attentions = features.get("expected_attentions")
     if expected_attentions is not None:
