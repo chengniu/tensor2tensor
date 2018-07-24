@@ -3,11 +3,10 @@
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py" line="98" />
     <bookmark url="file://$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py" line="317" />
+    <bookmark url="file://$PROJECT_DIR$/tensor2tensor/my_tests/test_transfomer_with_context.py" line="25" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="118fa719-c28b-408a-b59f-bfe22fd5ef72" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py" afterDir="false" />
-    </list>
+    <list default="true" id="118fa719-c28b-408a-b59f-bfe22fd5ef72" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +19,8 @@
       <file leaf-file-name="transformer_with_context.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="50" column="88" selection-start-line="50" selection-start-column="88" selection-end-line="50" selection-end-column="88" />
+            <state relative-caret-position="188">
+              <caret line="194" column="81" selection-start-line="194" selection-start-column="59" selection-end-line="194" selection-end-column="81" />
               <folding>
                 <element signature="e#1054#1092#0" expanded="true" />
               </folding>
@@ -77,8 +76,8 @@
       <file leaf-file-name="test_transfomer_with_context.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tensor2tensor/my_tests/test_transfomer_with_context.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="42" />
+            <state relative-caret-position="333">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -263,17 +262,17 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18020834" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18020834" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.15531915" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="8" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32978722" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32978722" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -357,6 +356,21 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
       <expression>
+        <expression-string>decoder_output_context.eval(session=tf.Session())</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>decoder_output_context.eval(session=sess)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>y</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>x</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
@@ -365,45 +379,37 @@
         <expression-string>init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
-x =conv_output.eval(session=sess)</expression-string>
+x=decoder_output_context.eval(session=sess)
+y=decoder_output.eval(session=sess)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>init = tf.initialize_all_variables()
+        <expression-string>init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
-x =decoder_input.eval(session=sess)</expression-string>
+x=encoder_output_context.eval(session=sess)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>log_timescale_increment.eval(session=tf.Session())</expression-string>
+        <expression-string>init = tf.global_variables_initializer()
+sess = tf.Session()
+sess.run(init)
+x=encoder_output_context.eval(sess)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>log_timescale_increment.eval()</expression-string>
+        <expression-string>init = tf.global_variables_initializer()
+sess = tf.Session()
+sess.run(init)
+x=encoder_output_context.eval(session=tf.Session())</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>100 // 2</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>10 // 2</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>5 // 2</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>channels // 2</expression-string>
+        <expression-string>encoder_output_context.eval(session=tf.Session())</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
@@ -760,8 +766,8 @@ x =decoder_input.eval(session=sess)</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/tensor2tensor/my_tests/test_transfomer_with_context.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="42" />
+        <state relative-caret-position="333">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
@@ -770,8 +776,8 @@ x =decoder_input.eval(session=sess)</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/tensor2tensor/models/transformer_with_context.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="50" column="88" selection-start-line="50" selection-start-column="88" selection-end-line="50" selection-end-column="88" />
+        <state relative-caret-position="188">
+          <caret line="194" column="81" selection-start-line="194" selection-start-column="59" selection-end-line="194" selection-end-column="81" />
           <folding>
             <element signature="e#1054#1092#0" expanded="true" />
           </folding>
