@@ -36,6 +36,8 @@ import tensorflow as tf
 flags = tf.flags
 FLAGS = flags.FLAGS
 
+# config.log_device_placement = True
+
 # See flags.py for additional command-line flags.
 flags.DEFINE_string("t2t_usr_dir", None,
                     "Path to a Python module that will be imported. The "
@@ -117,7 +119,6 @@ flags.DEFINE_string("job-dir", None,
 flags.DEFINE_integer("log_step_count_steps", 100,
                      "Number of local steps after which progress is printed "
                      "out")
-
 
 def set_hparams_from_args(args):
   """Set hparams overrides from unparsed args list."""

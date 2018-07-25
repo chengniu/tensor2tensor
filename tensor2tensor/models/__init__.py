@@ -33,7 +33,7 @@ from tensor2tensor.models import slicenet
 from tensor2tensor.models import transformer
 from tensor2tensor.models import vanilla_gan
 from tensor2tensor.models import xception
-from tensor2tensor.models import transformer_multi_context
+# from tensor2tensor.models import transformer_multi_context
 from tensor2tensor.models import transformer_with_context
 
 from tensor2tensor.models.research import adafactor_experiments

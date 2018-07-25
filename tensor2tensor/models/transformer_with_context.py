@@ -21,25 +21,26 @@ good results on a number of problems, especially in NLP and machine translation.
 See "Attention Is All You Need" (https://arxiv.org/abs/1706.03762) for the full
 description of the model and the results obtained with its early version.
 """
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from six.moves import range  # pylint: disable=redefined-builtin
 
-from tensor2tensor.data_generators import librispeech
+# from tensor2tensor.data_generators import librispeech
 from tensor2tensor.layers import common_attention
-from tensor2tensor.layers import common_hparams
+# from tensor2tensor.layers import common_hparams
 from tensor2tensor.layers import common_layers
-from tensor2tensor.utils import beam_search
+# from tensor2tensor.utils import beam_search
 from tensor2tensor.utils import expert_utils
 from tensor2tensor.utils import registry
 from tensor2tensor.utils import t2t_model
+from tensor2tensor.utils.t2t_model import log_info, log_warn
 
 import tensorflow as tf
-import six, collections
+import six
+import collections
 
-from tensorflow.python.util import nest
+# from tensorflow.python.util import nest
 
 
 @registry.register_model
@@ -50,7 +51,7 @@ class TransformerWithContext(t2t_model.T2TModel):
 		super(TransformerWithContext, self).__init__(*args, **kwargs)
 		self.attention_weights = dict()  # For visualizing attention heads.
 	
-	def encode(self, inputs_context, inputs, target_space, hparams, features=None, losses=None):
+	def encode(self, inputs_context, inputs, target_space, hparams, features=None, losses=None, name=None):
 		"""Encode transformer inputs.
 	
 		Args:
@@ -74,9 +75,12 @@ class TransformerWithContext(t2t_model.T2TModel):
 		"""
 		inputs = common_layers.flatten4d3d(inputs)
 		
+		# self_attention.shape ---> [batch_size, 1, 1, input_length]
 		encoder_input, self_attention_bias, encoder_decoder_attention_bias = (
 			transformer_prepare_encoder(
 				inputs, target_space, hparams, features=features))
+		# import pdb
+		# pdb.set_trace()
 		
 		encoder_input = tf.nn.dropout(encoder_input,
 		                              1.0 - hparams.layer_prepostprocess_dropout)
@@ -105,17 +109,27 @@ class TransformerWithContext(t2t_model.T2TModel):
 			encoder_input_context,
 			self_attention_bias_context,
 			hparams,
-			hparams,
+			name='encoder_context',
 			nonpadding=features_to_nonpadding(features, "inputs"),
 			save_weights_to=self.attention_weights,
 			losses=losses)
-		
 		encoder_output_context = transformer_decoder(
-			encoder_output,
+			encoder_input,
 			encoder_output_context_0,
 			encoder_decoder_attention_bias,
 			encoder_decoder_attention_bias_context,
-			hparams)
+			hparams,
+			name='decoder_input_context')
+		
+		# debug = False
+		# if debug:
+		# 	return {
+		# 		'encoder_input':encoder_input,
+		# 		'encoder_input_context':encoder_input_context,
+		# 		'encoder_output':encoder_output,
+		# 		'encoder_output_context_0':encoder_output_context_0,
+		# 		'encoder_output_context':encoder_output_context,
+		# 	}
 		
 		return encoder_output_context, encoder_output, encoder_decoder_attention_bias
 	
@@ -125,6 +139,7 @@ class TransformerWithContext(t2t_model.T2TModel):
 	           encoder_decoder_attention_bias,
 	           decoder_self_attention_bias,
 	           hparams,
+	           name=None,
 	           cache=None,
 	           decode_loop_step=None,
 	           nonpadding=None,
@@ -153,7 +168,6 @@ class TransformerWithContext(t2t_model.T2TModel):
 		"""
 		decoder_input = tf.nn.dropout(decoder_input,
 		                              1.0 - hparams.layer_prepostprocess_dropout)
-		
 		decoder_output = transformer_decoder(
 			decoder_input,
 			encoder_output,
@@ -164,7 +178,8 @@ class TransformerWithContext(t2t_model.T2TModel):
 			decode_loop_step=decode_loop_step,
 			nonpadding=nonpadding,
 			save_weights_to=self.attention_weights,
-			losses=losses)
+			losses=losses,
+			name=name)
 		
 		if (common_layers.is_on_tpu() and
 				hparams.mode == tf.estimator.ModeKeys.TRAIN):
@@ -178,34 +193,50 @@ class TransformerWithContext(t2t_model.T2TModel):
 	def _beam_decode(self, features, decode_length, beam_size, top_beams, alpha):
 		return
 	
-	def cat_and_compress(self, decoder_output_context, decoder_output, decoder_self_attention_bias, hparams):
+	# bug find in shape of decoder output and decoder output context
+	def cat_and_compress(self, decoder_output_context, decoder_output, decoder_self_attention_bias, hparams, name=None):
 		"""cantenant decoder_output_context and decoder_output_context at the
 		   last dimenstion, and then compress.
   
 			Args:
-			  decoder_output_context:  [batch_size, decoder_length, hidden_dim]
-			  decoder_output:  [batch_size, input_length, hidden_dim]
+			  decoder_output_context:  [batch_size, decoder_length, 1, hidden_dim]
+			  decoder_output:  [batch_size, input_length, 1, hidden_dim]
 			  decoder_self_attention_bias: Bias and mask weights for decoder
 				  self-attention. [batch_size, decoder_length]\
   
 			Returns:
 			  Final decoder representaiton. [batch_size, decoder_length, hidden_dim]
 			"""
+		# decoder_output = common_layers.flatten4d3d(decoder_output)
+		# decoder_output_context = common_layers.flatten4d3d(decoder_output_context)
+		# import pdb
+		# pdb.set_trace()
 		with tf.variable_scope("cat_and_compress"):
-			x = tf.concat([decoder_output_context, decoder_output], 2)
+			x = tf.concat([decoder_output_context, decoder_output], -1)
 			original_shape = tf.shape(x)
-			hidden_dim = original_shape[2] / 2
+			hidden_dim = x.get_shape().as_list()[-1] / 2
 			pad_remover = None
-			if hparams.use_pad_remover:
+			
+			# pad_remover causes problem, skip this process now.
+			skip_pad_remover = True
+			if hparams.use_pad_remover and not skip_pad_remover:
+				# decoder self attention is different from self_attention_bias(encoder) in shape
+				# todo : carefully read the code of attention_bias_to_padding.
 				pad_remover = expert_utils.PadRemover(
 					common_attention.attention_bias_to_padding(decoder_self_attention_bias))
+				# import pdb
+				# pdb.set_trace()
 				x = tf.reshape(x, tf.concat([[-1], tf.shape(x)[2:]], axis=0))
 				x = tf.expand_dims(pad_remover.remove(x), axis=0)
-			conv_output = common_layers.conv_hidden_relu(x, 1, hidden_dim)
+				
+				conv_output = common_layers.dense_relu_dense(x, 1, hidden_dim)
 			if pad_remover:
 				conv_output = tf.reshape(pad_remover.restore(tf.squeeze(conv_output, axis=0)), original_shape)
 				return conv_output
-	
+			
+			conv_output = common_layers.dense_relu_dense(x, 1, hidden_dim)
+			return conv_output
+			
 	def body(self, features):
 		"""Transformer main model_fn.
 	
@@ -222,7 +253,8 @@ class TransformerWithContext(t2t_model.T2TModel):
 		hparams = self._hparams
 		
 		losses = []
-		
+		# import pdb
+		# pdb.set_trace()
 		if self.has_input:
 			inputs_context = features.get("context")
 			inputs = features["inputs"]
@@ -236,6 +268,8 @@ class TransformerWithContext(t2t_model.T2TModel):
 		targets_shape = common_layers.shape_list(targets)
 		targets = common_layers.flatten4d3d(targets)
 		
+		# decoder_self_attention_bias is different from self_attention_bias
+		# its shape could either be : [batch, 1, length, length] or [1, 1, length, length]
 		decoder_input, decoder_self_attention_bias = transformer_prepare_decoder(
 			targets, hparams, features=features)
 		
@@ -246,7 +280,9 @@ class TransformerWithContext(t2t_model.T2TModel):
 			decoder_self_attention_bias,
 			hparams,
 			nonpadding=features_to_nonpadding(features, "targets"),
-			losses=losses)
+			losses=losses,
+			name='decoder_output_input')
+		
 		
 		if encoder_output_context is not None:
 			decoder_output_context = self.decode(
@@ -256,8 +292,11 @@ class TransformerWithContext(t2t_model.T2TModel):
 				decoder_self_attention_bias,
 				hparams,
 				nonpadding=features_to_nonpadding(features, "targets"),
-				losses=losses)
-			decoder_output = self.cat_and_compress(decoder_output_context, decoder_output)
+				losses=losses,
+				name='decoder_output_input_context')
+			
+			decoder_output = self.cat_and_compress(decoder_output_context, decoder_output,
+			                                       decoder_self_attention_bias, hparams)
 		
 		expected_attentions = features.get("expected_attentions")
 		if expected_attentions is not None:
@@ -268,6 +307,15 @@ class TransformerWithContext(t2t_model.T2TModel):
 			return decoder_output, {"attention_loss": attention_loss}
 		
 		ret = tf.reshape(decoder_output, targets_shape)
+		# debug = True
+		# if debug:
+		# 	return {'inputs':inputs,
+		# 	        'inputs_context':inputs_context,
+		# 			'encoder_output':encoder_output,
+		# 	        'encoder_output_context':encoder_output_context,
+		# 	        'decoder_output':decoder_output,
+		# 	        'decoder_output_context': decoder_output_context,
+		# 	        'cat_and_compress_output': cat_and_compress_output}
 		if losses:
 			return ret, {"extra_loss": tf.add_n(losses)}
 		else:
@@ -298,9 +346,14 @@ class TransformerWithContext(t2t_model.T2TModel):
 				log_info("Transforming feature '%s' with %s.bottom", key,
 				         input_modality.name)
 				if key == 'context':
-					for feature_key in context_key_list:
-						transformed_features[feature_key] = self._problem_hparams.input_modality['context'].bottom(
-							features[feature_key])
+					# for feature_key in context_key_list:
+						# transformed_features[feature_key] = self._problem_hparams.input_modality['context'].bottom(
+						# 	features[feature_key])
+					transformed_features[key] = input_modality.bottom(features[key])
+				elif key.startswith('context'):
+					continue
+				else:
+					transformed_features[key] = input_modality.bottom(features[key])
 			all_previous_modalities.append(input_modality.name)
 		
 		# Transform the targets (for autoregressive models)
@@ -327,7 +380,7 @@ class TransformerWithContext(t2t_model.T2TModel):
 				# For features without a modality, we pass them along as is
 				transformed_features[key] = features[key]
 			else:
-				# Other features get passed along with the "raw" suffix
+				# Other features get passed along wit h the "raw" suffix
 				transformed_features[key + "_raw"] = features[key]
 		return transformed_features
 
@@ -770,16 +823,17 @@ def transformer_ffn_layer(x,
 
 _already_logged = set()
 
-def _eager_log(level, *args):
-  if tf.contrib.eager.in_eager_mode() and args in _already_logged:
-    return
-  _already_logged.add(args)
-  getattr(tf.logging, level)(*args)
 
-
-def log_info(*args):
-  _eager_log("info", *args)
-
-
-def log_warn(*args):
-  _eager_log("warn", *args)
+# def _eager_log(level, *args):
+# 	if tf.contrib.eager.in_eager_mode() and args in _already_logged:
+# 		return
+# 	_already_logged.add(args)
+# 	getattr(tf.logging, level)(*args)
+#
+#
+# def log_info(*args):
+# 	_eager_log("info", *args)
+#
+#
+# def log_warn(*args):
+# 	_eager_log("warn", *args)

@@ -1485,6 +1485,8 @@ def dense_relu_dense(inputs,
   if dropout != 0.0:
     h = dropout_with_broadcast_dims(
         h, 1.0 - dropout, broadcast_dims=dropout_broadcast_dims)
+  # import pdb
+  # pdb.set_trace()
   o = dense(
       h,
       output_size,

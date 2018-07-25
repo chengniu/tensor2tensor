@@ -128,6 +128,8 @@ def create_run_config(master="",
                       log_step_count_steps=100,
                       intra_op_parallelism_threads=0):
   """Create RunConfig, TPUConfig, and Parallelism object."""
+  # import pdb
+  # pdb.set_trace()
   session_config = create_session_config(
       log_device_placement=log_device_placement,
       enable_graph_rewriter=enable_graph_rewriter,
